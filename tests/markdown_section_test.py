@@ -1,29 +1,28 @@
-from markdown_dom import MarkdownSection, MarkdownSectionTitle
-
+from markdown_dom import markdown_section, markdown_section_title
 
 
 def test_markdown_section() -> None:
-    markdown_section = MarkdownSection("test")
-    assert markdown_section.render(section_level=1) == "test"
+    markdown = markdown_section("test")
+    assert markdown.render(section_level=1) == "test"
 
 
 def test_markdown_section_with_title() -> None:
-    markdown_section = MarkdownSection(MarkdownSectionTitle("test"), "description")
+    markdown = markdown_section(markdown_section_title("test"), "description")
     assert (
-        markdown_section.render(section_level=1)
+        markdown.render(section_level=1)
         == """# test
 description"""
     )
 
 
 def test_markdown_section_with_multiple_elements() -> None:
-    markdown_section = MarkdownSection(
-        MarkdownSectionTitle("test"),
+    markdown = markdown_section(
+        markdown_section_title("test"),
         "description1",
         "description2",
     )
     assert (
-        markdown_section.render(section_level=1)
+        markdown.render(section_level=1)
         == """# test
 description1
 description2"""
@@ -31,32 +30,32 @@ description2"""
 
 
 def test_markdown_section_with_none_elements() -> None:
-    markdown_section = MarkdownSection(
-        MarkdownSectionTitle("test"),
+    markdown = markdown_section(
+        markdown_section_title("test"),
         None,
         "description",
     )
     assert (
-        markdown_section.render(section_level=1)
+        markdown.render(section_level=1)
         == """# test
 description"""
     )
 
 
 def test_markdown_section_nested() -> None:
-    markdown_section = MarkdownSection(
-        MarkdownSectionTitle("test"),
-        MarkdownSection(
-            MarkdownSectionTitle("nested"),
+    markdown = markdown_section(
+        markdown_section_title("test"),
+        markdown_section(
+            markdown_section_title("nested"),
             "description",
         ),
-        MarkdownSection(
-            MarkdownSectionTitle("nested2"),
+        markdown_section(
+            markdown_section_title("nested2"),
             "description2",
         ),
     )
     assert (
-        markdown_section.render(section_level=2)
+        markdown.render(section_level=2)
         == """## test
 ### nested
 description
@@ -64,4 +63,3 @@ description
 ### nested2
 description2"""
     )
-
