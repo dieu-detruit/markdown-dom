@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "markdown-dom"
-version = "0.1.0"
+version = "0.2.0"
 description = "A library for building and rendering markdown."
 readme = "README.md"
 license = {text = "MIT"}
